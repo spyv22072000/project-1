@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
+    <style>
+        *{ padding:0; margin:0;box-sizing:border-box;font-family: 'Josefin Sans', sans-serif;}
+        .mainDiv{
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            background: #3498db;
+        }
+        .centerdiv{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            text-align: center;
+        }
+        h1{
+            text-transform: capitalize;
+            margin-bottom: 30px;
+            color:aqua;
+            text-shadow: 1px,3px,2px,#2980b9;
+            font-size: 2.1rem;
+        }
+        h1:hover{
+            color:blue;
+            
+        }
+        h2{
+            text-align:center
+        }
+        textarea{
+            background-color: #444;
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+            border-radius: 10px 10px 0 0;
+            border: 20px solid #35495e;
+            color: antiquewhite;
+            font-size: 1.3rem;
+        }
+        .mainbtn{
+            border-radius: 20px;
+            padding: 10px 20px;
+            border: 5px dotted #2980b9;
+            font-size: 1.2rem;
+            background: #ecf0f1;
+            
+            
+        }
+        </style>
+
+</head>
+<body>
+    <div class="mainDiv">
+        <div class="centerdiv">
+            <h1>Welcome to Typing speed Test</h1>
+            <h2 id="msg"> </h2><br>
+            <textarea id="myword" cols="100" rows="10" placeholder="Remember ,be nice! "> </textarea>
+            <br>
+            <button id="btn" class="mainbtn">Start</button>
+
+        </div>
+    </div>   
+    <script>
+const setofword=["Traveling became almost extinct during the pandemic.", " He decided to count all the sand on the beach as a hobby. ", "A quiet house is nice until you are ordered to stay in it for months." ,"A good example of a useful vegetable is medicinal rhubarb." ,"When nobody is around, the trees gossip about the people who have walked under them." ,"They called out her name time and again, but were met with nothing but silence."];
+ const msg=document.getElementById('msg');
+ const TYPEWORD=document.getElementById('myword');
+ const btn =document.getElementById('btn');
+ let startTime,endTime;
+  const playGame=()=>{
+    let randomnumber = Math.floor(Math.random()*setofword.length);
+    msg.innerText=setofword[randomnumber];
+    let date= new Date();
+    startTime=date.getTime();
+    btn.innerText="Done";
+
+ }
+ 
+ const counter=(str)=>{
+    let response= str.split(" ").length;
+    return response;
+ }
+
+  const endgame=()=>{
+    
+    let date = new Date();
+    endTime=date.getTime();
+    let totaltime = Math.floor((endTime-startTime)/1000);
+    console.log(totaltime);
+
+    let totalstr=TYPEWORD.value;
+    let wordcount =counter(totalstr);
+    
+    let speed= Math.round((wordcount/totaltime)*60);
+    let finalmsg="you typed total at " + speed +" words per minutes " ;
+    finalmsg+=comaparedword(msg.innerText,totalstr);
+    msg.innerText=finalmsg;
+  }
+  const comaparedword = (str1,str2)=>{
+  let word1=str1.split(" ");
+  let word2=str2.split(" ");
+  let cnt=0;
+
+  word1.forEach(function(item,index){
+    if(item == word2[index]){
+       cnt++;
+       console.log(item);
+       console.log(word2[index]);
+    }
+  }); 
+
+  let errorword=(word1.length-cnt);
+  return (cnt +" correct out of " + word1.length +" words and the total number of  error are " + errorword +".");
+
+  }
+
+ btn.addEventListener('click',function(){
+     if(this.innerText == 'Start'){
+        TYPEWORD.disabled=false;
+        playGame();
+    }
+    else if(this.innerText == "Done" ) {
+      TYPEWORD.disabled==true;
+      btn.innerText="Start";
+      endgame();
+
+     }
+ });
+        </script>
+</body>
+</html>
