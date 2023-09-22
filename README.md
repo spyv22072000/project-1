@@ -25,7 +25,7 @@ Credits
 This project was created by spyv22072000.
 
 The project uses the following open-source libraries and resources:
-web3school for refernce 
+web3school for refernce .
 Lorem Ipsum for generating random paragraphs
 License
 This project is licensed under the MIT License. See the LICENSE file for more information.
